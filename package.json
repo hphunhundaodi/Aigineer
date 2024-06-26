@@ -11,6 +11,7 @@
     "type-check": "nuxi typecheck"
   },
   "devDependencies": {
+    "@iconify-json/flowbite": "^1.1.5",
     "@iconify-json/ph": "^1.1.13",
     "@iconify/tailwind": "^1.1.1",
     "@nuxtjs/tailwindcss": "^6.10.4",
@@ -23,9 +24,7 @@
     "tsup": "^8.0.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "vite": "^5.1.0",
-    "vue": "^3.4.6",
-    "vue-router": "^4.2.5"
+    "vite": "^5.1.0"
   },
   "dependencies": {
     "@logto/vue": "^2.2.5",

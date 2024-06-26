@@ -7,9 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
-
 import { isAuthenticated } from "~/services/auth";
 
 const { startAigineer } = useShortcutToGame();

@@ -18,11 +18,6 @@ function addClarity() {
 
 export default defineNuxtConfig({
   ssr: false,
-  // default is true, reference to https://nuxt.com/docs/guide/directory-structure/components
-  // components: true,
-  imports: {
-    autoImport: false,
-  },
   devtools: {
     enabled: true,
   },

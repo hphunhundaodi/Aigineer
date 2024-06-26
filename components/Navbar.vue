@@ -58,19 +58,13 @@
 </template>
 
 <script setup lang="ts">
-import { useWindowScroll } from "@vueuse/core";
-import { useRuntimeConfig } from "nuxt/app";
-import { computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-
 import { isAuthenticated, signIn, signOut } from "~/services/auth";
 import { useUserStore } from "~/store/user";
-
-const runtimeConfig = useRuntimeConfig();
 
 const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
+
 const { y } = useWindowScroll();
 
 const isShowModal = ref(false);
