@@ -25,6 +25,12 @@ dependencies:
     version: 2.1.7(typescript@5.5.2)(vue@3.4.30)
 
 devDependencies:
+  '@iconify-json/ph':
+    specifier: ^1.1.13
+    version: 1.1.13
+  '@iconify/tailwind':
+    specifier: ^1.1.1
+    version: 1.1.1
   '@nuxtjs/tailwindcss':
     specifier: ^6.10.4
     version: 6.12.0
@@ -891,6 +897,22 @@ packages:
       long: 5.2.3
       protobufjs: 7.3.2
       yargs: 17.7.2
+    dev: true
+
+  /@iconify-json/ph@1.1.13:
+    resolution: {integrity: sha512-xtM4JJ63HCKj09WRqrBswXiHrpliBlqboWSZH8odcmqYXbvIFceU9/Til4V+MQr6+MoUC+KB72cxhky2+A6r/g==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify/tailwind@1.1.1:
+    resolution: {integrity: sha512-4mmA//qjZigv7D4KlqcVSYTqfRIJzyts2/lSCAJfCL0rVMIE76+ifJnaE5jxCo1+nYGBF8FsFo0qFOs+sX4EnA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify/types@2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: true
 
   /@ioredis/commands@1.2.0:
@@ -1785,6 +1807,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.7
+      napi-wasm: 1.1.0
     bundledDependencies:
       - napi-wasm
 
@@ -5201,6 +5224,9 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
 
   /negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}

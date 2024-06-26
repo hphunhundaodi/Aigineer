@@ -27,6 +27,7 @@
                   {{ optItem.name }}
                 </a> -->
                 <div class="text-nowrap hover:text-purple-600 dark:text-white dark:hover:text-purple-400"
+                  :class="route.path === optItem.path ? 'text-purple-600 dark:text-purple-400' : ''"
                   @click="changeMenu(optItem.path)">
                   {{ optItem.name }}
                 </div>
@@ -81,7 +82,7 @@ const HEADER_OPTIONS = [
   { name: "chatBot", path: "/chat" },
 ];
 const changeMenu = (path: string) => {
-  console.log(router, route);
+  console.log(router, route.path);
 
   router.push(path);
 }
