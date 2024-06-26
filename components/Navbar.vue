@@ -7,7 +7,7 @@
     <div class="mx-auto max-w-screen-xl">
       <div class="flex h-16 items-center justify-between">
         <div class="flex flex-1 items-center justify-between">
-          <NuxtLink to="/">
+          <NuxtLink to="/main">
             <div class="logo flex items-center">
               <h1 class="text-wrap text-2xl font-extrabold leading-normal dark:text-white">
                 Ai.gineer
@@ -26,8 +26,8 @@
                 >
                   {{ optItem.name }}
                 </a> -->
-                <div class="text-nowrap hover:text-purple-600 dark:text-white dark:hover:text-purple-400"
-                  :class="route.path === optItem.path ? 'text-purple-600 dark:text-purple-400' : ''"
+                <div class="text-nowrap hover:text-purple-600 dark:hover:text-purple-400"
+                  :class="route.path === optItem.path ? 'text-purple-600 dark:text-purple-400' : 'dark:text-white'"
                   @click="changeMenu(optItem.path)">
                   {{ optItem.name }}
                 </div>
