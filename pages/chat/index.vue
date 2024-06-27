@@ -15,10 +15,10 @@
               </div>
               <div class="flex-1 flex">
                 <textarea ref="chatText" v-model="textareaValue"
-                  :style="{ height: textareaHeight, overflowY: textareaOverflow }"
-                  class=" box-border text-base flex-1 w-full max-h-52 px-0 py-2 textarea textarea-bordered bg-transparent border-none outline-none focus:border-none focus:outline-none resize-none bg-transparent appearance-auto"
-                  placeholder="Bio" @keydown.enter.native="inputKeyDown"
-                  @keydown.delete="inputKeyDownDelete"></textarea>
+                  :style="{ height: textareaHeight }" class=" box-border text-base leading-8 flex-1 
+                    w-full max-h-52 px-0 py-2 textarea textarea-bordered bg-transparent border-none outline-none focus:border-none 
+                    focus:outline-none resize-none bg-transparent appearance-auto" :placeholder="textareaPlaceholder"
+                  @keydown.enter.native="inputKeyDown" @keydown.delete="inputKeyDownDelete"></textarea>
               </div>
               <button className="btn btn-circle  btn-sm mb-2 mr-2 hover:text-white" @click="submit">
                 <span class="icon-[ph--arrow-up] h-5 w-5"></span>
@@ -34,6 +34,7 @@
 
 <script lang="ts" setup>
 const chatText = ref(null)
+const textareaPlaceholder = ref('给"Ai.gineer"发送消息')
 const textareaValue = ref('')
 const textareaHeight = ref('40px')
 const textareaOverflow = ref('hidden')
@@ -41,9 +42,12 @@ const textareaLineCount = ref(1)
 const inputKeyDown = (e: KeyboardEvent) => {
   if (e.shiftKey && e.code === "Enter") {
     // 处理换行逻辑
-    textareaHeight.value = `${parseInt(textareaHeight.value) + 24}px`
+    if (textareaLineCount.value === 1) {
+      textareaHeight.value = `${parseInt(textareaHeight.value) + 40}px`
+    } else {
+      textareaHeight.value = `${parseInt(textareaHeight.value) + 32}px`
+    }
     textareaLineCount.value++
-
     if (parseInt(textareaHeight.value) > (13 * 16)) {
       textareaOverflow.value = 'auto'
       // [todo] 保持滚动到底部
@@ -51,16 +55,18 @@ const inputKeyDown = (e: KeyboardEvent) => {
       textareaOverflow.value = 'hidden'
     }
   } else {
-    console.log('inputKeyDown', e);
     // 处理提交逻辑
-    // [todo] 取消事件行为
+    e.preventDefault()
   }
 }
 const inputKeyDownDelete = (e: KeyboardEvent) => {
   console.log('inputKeyDownDelete', e.target.scrollHeight);
-  // [todo] 成功删掉一行才-24
-  if (textareaLineCount.value > 1) {
-    textareaHeight.value = `${parseInt(textareaHeight.value) - 24}px`
+  // [todo] 成功删掉一行才-32
+  if (textareaLineCount.value > 2) {
+    textareaHeight.value = `${parseInt(textareaHeight.value) - 32}px`
+    textareaLineCount.value--
+  } else if (textareaLineCount.value === 2) {
+    textareaHeight.value = `${parseInt(textareaHeight.value) - 40}px`
     textareaLineCount.value--
   }
 }
