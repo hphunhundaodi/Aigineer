@@ -15,7 +15,7 @@
               </div>
               <div class="flex-1 flex">
                 <textarea ref="chatText" v-model="textareaValue"
-                  :style="{ height: textareaHeight }" class=" box-border text-base leading-8 flex-1 
+                  :style="{ height: textareaHeight, overflowY: textareaOverflow }" class=" box-border text-base leading-8 flex-1 
                     w-full max-h-52 px-0 py-2 textarea textarea-bordered bg-transparent border-none outline-none focus:border-none 
                     focus:outline-none resize-none bg-transparent appearance-auto" :placeholder="textareaPlaceholder"
                   @keydown.enter.native="inputKeyDown" @keydown.delete="inputKeyDownDelete"></textarea>
@@ -33,46 +33,45 @@
 </template>
 
 <script lang="ts" setup>
-const chatText = ref(null)
+const chatText = ref<HTMLTextAreaElement | null>(null)
 const textareaPlaceholder = ref('给"Ai.gineer"发送消息')
 const textareaValue = ref('')
 const textareaHeight = ref('40px')
 const textareaOverflow = ref('hidden')
-const textareaLineCount = ref(1)
+// 换行 & 提交
 const inputKeyDown = (e: KeyboardEvent) => {
   if (e.shiftKey && e.code === "Enter") {
     // 处理换行逻辑
-    if (textareaLineCount.value === 1) {
-      textareaHeight.value = `${parseInt(textareaHeight.value) + 40}px`
-    } else {
-      textareaHeight.value = `${parseInt(textareaHeight.value) + 32}px`
-    }
-    textareaLineCount.value++
-    if (parseInt(textareaHeight.value) > (13 * 16)) {
-      textareaOverflow.value = 'auto'
-      // [todo] 保持滚动到底部
-    } else {
-      textareaOverflow.value = 'hidden'
-    }
+    setTimeout(() => {
+      setAreaHeight()
+      // 控制输入框高度不超过 max-h-52  如果超过了显示输入框
+      if (parseInt(textareaHeight.value) > (13 * 16)) {
+        textareaOverflow.value = 'auto'
+        chatText.value!.scrollTo(0, chatText.value!.scrollHeight)
+      } else textareaOverflow.value = 'hidden'
+    }, 0)
   } else {
-    // 处理提交逻辑
     e.preventDefault()
+    submit()
   }
 }
+// 删除换行
 const inputKeyDownDelete = (e: KeyboardEvent) => {
-  console.log('inputKeyDownDelete', e.target.scrollHeight);
-  // [todo] 成功删掉一行才-32
-  if (textareaLineCount.value > 2) {
-    textareaHeight.value = `${parseInt(textareaHeight.value) - 32}px`
-    textareaLineCount.value--
-  } else if (textareaLineCount.value === 2) {
-    textareaHeight.value = `${parseInt(textareaHeight.value) - 40}px`
-    textareaLineCount.value--
+  if (textareaValue.value.includes("\n")) {
+    const lines = textareaValue.value.split("\n")
+    if (lines.length <= 1) return
+    setTimeout(() => { setAreaHeight() }, 0)
   }
 }
-const inputTextarea = (e: KeyboardEvent) => {
-  console.log('inputTextarea', textareaValue);
+// 设置输入框高度
+const setAreaHeight = () => {
+  const nowLine = textareaValue.value.split("\n")
+  // 前两行是40px 后面都是32px
+  const nowHeight = nowLine.reduce((pre, cur, i) => pre += i < 2 ? 40 : 32, 0)
+  if (textareaHeight.value !== `${nowHeight}px`) textareaHeight.value = `${nowHeight}px`
+
 }
+// 提交
 const submit = () => {
   console.log('submit', textareaValue.value, textareaValue.value.includes("\n"), textareaValue.value.split("\n"));
 }
