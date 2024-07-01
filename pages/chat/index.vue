@@ -1,10 +1,11 @@
 <template>
   <div class="w-full flex h-full flex-col">
-    <div class="flex-1 overflow-hidden">
+    <div class="overflow-hidden" :style="{ height: `${contentHeight}px` }">
       <div class="h-full">
-        <div class=" relative h-full">
-          <div class=" overflow-y-auto h-full w-full">
-            <div class=" flex flex-col">
+        <div class="relative h-full">
+          <div ref="scrollRef" class=" overflow-y-auto h-full w-full">
+            <!-- 对话content -->
+            <div class="flex flex-col">
               <div class="w-full text-token-text-primary" dir="auto" data-testid="conversation-turn-17"
                 data-scroll-anchor="false">
                 <div class="py-2 juice:py-[18px] px-3 text-base md:px-4 m-auto md:px-5 lg:px-1 xl:px-5">
@@ -59,7 +60,8 @@
                                   </li>
                                 </ol>
                                 <p>以下是一个示例代码：</p>
-                                <pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>html</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon-sm"><path fill="currentColor" fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1zM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1z" clip-rule="evenodd"></path></svg>复制代码</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+                                <pre>
+                                  <div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>html</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon-sm"><path fill="currentColor" fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1zM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1z" clip-rule="evenodd"></path></svg>复制代码</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
@@ -106,7 +108,8 @@
       </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
-  </code></div></div></pre>
+                                  </code></div></div>
+                                </pre>
                                 <h3>说明</h3>
                                 <ol>
                                   <li><strong>HTML 部分</strong>：包括一个 <code>textarea</code> 和两个用于显示行数和消息的 <code>p</code>
@@ -137,11 +140,10 @@
         </div>
       </div>
     </div>
-    <div class="">
+    <div ref="TextareaRef" data-name="textarea" class="">
       <div class="flex justify-center items-center w-full">
         <div class="w-full flex justify-center items-center">
-          <!-- <div class="w-9/12 flex justify-center items-center"> -->
-          <div class=" w-full bg-[#2f2f2f] rounded-[26px]">
+          <div class="w-full bg-[#2f2f2f] rounded-[26px]">
             <div class="w-full flex justify-center items-end gap-3 p-1">
               <div class="ml-2 mb-1.5">
                 <span class="icon-[flowbite--paper-clip-outline] h-6 w-6"></span>
@@ -166,6 +168,48 @@
 </template>
 
 <script lang="ts" setup>
+/** 聊天内容 ---------------------- */
+const scrollRef = ref<HTMLTextAreaElement | null>(null)
+const { arrivedState } = useScroll(scrollRef)
+// 判断是否滚动到底
+const arrivedBottom = computed(() => Boolean(arrivedState.bottom))
+
+const contentInitHeight = ref(0)
+const BottomHeight = ref(0)
+const contentHeight = computed(() => {
+  return contentInitHeight.value - BottomHeight.value
+})
+
+const TextareaRef = ref<HTMLTextAreaElement | null>(null)
+onMounted(() => {
+  // html 高度 - header 高度
+  const ChatBotContent = document.documentElement
+  contentInitHeight.value = ChatBotContent?.clientHeight! - 64
+  // 创建 ResizeObserver 监听dom结构变化
+  const resizeObserver = new ResizeObserver(entries => {
+    if (!entries.length) return
+    for (let entry of entries) {
+      // 判断改变高度的是不是 textarea 这个dom
+      if ((entry.target as HTMLElement).dataset.name === 'textarea') {
+        BottomHeight.value = entry.contentRect.height
+        if (arrivedBottom.value) {
+          scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
+        }
+      }
+    }
+  });
+  // 监听 bottom 高度变化
+  resizeObserver.observe(TextareaRef.value!);
+  // 销毁时解除监听
+  onBeforeUnmount(() => {
+    if (resizeObserver) {
+      resizeObserver.unobserve(TextareaRef.value!);
+      resizeObserver.disconnect();
+    }
+  })
+})
+
+/** 聊天框 ---------------------- */
 const chatText = ref<HTMLTextAreaElement | null>(null)
 const textareaPlaceholder = ref('给"Ai.gineer"发送消息')
 const textareaValue = ref('')
