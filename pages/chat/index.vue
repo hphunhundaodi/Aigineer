@@ -5,7 +5,7 @@
         <div class="relative h-full">
           <div ref="scrollRef" class=" overflow-y-auto h-full w-full">
             <!-- 对话content -->
-            <div class="flex flex-col">
+            <div class="flex flex-col pb-9">
               <div class="w-full text-token-text-primary" dir="auto" data-testid="conversation-turn-17"
                 data-scroll-anchor="false">
                 <div class="py-2 juice:py-[18px] px-3 text-base md:px-4 m-auto md:px-5 lg:px-1 xl:px-5">
@@ -135,6 +135,7 @@
                   </div>
                 </div>
               </div>
+              <ChatConversation v-for="(item, index) in contentList" :key="index" :value="item" />
             </div>
           </div>
         </div>
@@ -248,8 +249,17 @@ const setAreaHeight = () => {
   if (textareaHeight.value !== `${nowHeight}px`) textareaHeight.value = `${nowHeight}px`
 
 }
+const contentList = ref<string[]>([])
 // 提交
 const submit = () => {
   console.log('submit', textareaValue.value, textareaValue.value.includes("\n"), textareaValue.value.split("\n"));
+  // 模拟请求
+  setTimeout(() => {
+    contentList.value.push(textareaValue.value)
+    textareaValue.value = ''
+    nextTick(() => {
+      scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
+    })
+  }, 2000);
 }
 </script>
