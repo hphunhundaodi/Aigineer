@@ -16,7 +16,7 @@ function useShortcutToGame() {
 
   async function startAigineer() {
     if (!isAuthenticated()) {
-      router.push(`/course-pack`);
+      router.push(`/chat`);
     }
   }
 
