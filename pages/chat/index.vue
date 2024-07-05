@@ -51,7 +51,7 @@
               <div class="flex-1 flex">
                 <textarea ref="chatText" v-model="textareaValue"
                   :style="{ height: textareaHeight, overflowY: textareaOverflow }" class=" box-border text-base leading-8 flex-1 
-                    w-full max-h-52 px-0 py-2 textarea textarea-bordered bg-transparent border-none outline-none focus:border-none 
+                    w-full max-h-52 px-0 py-2 textarea textarea-bordered border-none outline-none focus:border-none 
                     focus:outline-none resize-none bg-transparent appearance-auto" :placeholder="textareaPlaceholder"
                   @keydown.enter.native="inputKeyDown" @keydown.delete="inputKeyDownDelete"></textarea>
               </div>
