@@ -8,10 +8,16 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex flex-1 items-center justify-between">
           <NuxtLink to="/main">
-            <div class="logo flex items-center">
+            <div class="logo flex items-baseline gap-3">
               <h1 class="text-wrap text-2xl font-extrabold leading-normal dark:text-white">
-                Ai.gineer
+                AI.gineer
               </h1>
+              <!-- <div class="pl-2">v0.0.1</div> -->
+              <div class="relative inline-flex">
+                <span
+                  class="inline-flex items-center text-xs px-1.5 py-0.5 bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-500 dark:text-primary-400 ring-1 ring-inset ring-primary-500 dark:ring-primary-400 ring-opacity-25 dark:ring-opacity-25 -mb-[2px] rounded font-semibold">
+                  v0.0.1</span>
+              </div>
             </div>
           </NuxtLink>
 
@@ -26,7 +32,7 @@
                 >
                   {{ optItem.name }}
                 </a> -->
-                <div class="text-nowrap hover:text-purple-600 dark:hover:text-purple-400"
+                <div class="text-nowrap hover:text-purple-600 dark:hover:text-purple-400 cursor-pointer"
                   :class="route.path === optItem.path ? 'text-purple-600 dark:text-purple-400' : 'dark:text-white'"
                   @click="changeMenu(optItem.path)">
                   {{ optItem.name }}
