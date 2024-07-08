@@ -158,31 +158,51 @@ const openUploadDialog = () => {
 // 测试数据
 const html = `<p>要判断 <code>&lt;textarea&gt;</code> 元素减少了一行，你可以使用 JavaScript 来监控其内容变化，并计算行数。以下是一个实现方法：</p><ol><li><p><strong>获取 textarea 内容的行数</strong>：</p><ul><li>计算 textarea 中的行数可以通过 <code>value</code> 属性中的换行符 <code>\n</code> 来完成。</li></ul></li><li><p><strong>监控 textarea 的输入事件</strong>：</p><ul><li>使用 <code>input</code> 事件监听 textarea 内容的变化。</li></ul></li><li><p><strong>比较当前行数和之前行数</strong>：</p><ul><li>保存之前的行数，每次输入事件触发时比较新行数和之前行数。</li></ul></li></ol><p>以下是一个示例代码：</p><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>html</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon-sm"><path fill="currentColor" fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1zM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1z" clip-rule="evenodd"></path></svg>复制代码</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Textarea Line Count<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-selector-tag">textarea</span> {<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;}</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"myTextarea"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type here..."</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"lineCount"</span>&gt;</span>Lines: 0<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"message"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-keyword">const</span> textarea = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'myTextarea'</span>);<span class="hljs-keyword">const</span> lineCountDisplay = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'lineCount'</span>);<span class="hljs-keyword">const</span> messageDisplay = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'message'</span>);<span class="hljs-keyword">let</span> previousLineCount = <span class="hljs-number">0</span>;<span class="hljs-keyword">function</span> <span class="hljs-title function_">getLineCount</span>(<span class="hljs-params">value</span>) {<span class="hljs-keyword">return</span> value.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>).<span class="hljs-property">length</span>;}textarea.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'input'</span>, <span class="hljs-function">() =&gt;</span> {<span class="hljs-keyword">const</span> currentLineCount = <span class="hljs-title function_">getLineCount</span>(textarea.<span class="hljs-property">value</span>);lineCountDisplay.<span class="hljs-property">textContent</span> = <span class="hljs-string">Lines: <span class="hljs-subst"> "${" currentLineCount "}" </span></span>; <span class="hljs-keyword" >if</span> (currentLineCount &lt; previousLineCount) {messageDisplay.<span class="hljs-property">textContent</span > = <span class="hljs-string" > 'A line was removed!' < /span>;} <span class="hljs-keyword">else</span > { messageDisplay.< span class= "hljs-property" > textContent < /span> = <span class="hljs-string">''</span >; }previousLineCount = currentLineCount;}); <span class="hljs-comment" >// Initialize line count</span>previousLineCount = <span class="hljs-title function_">getLineCount</span>(textarea.<span class="hljs-property">value</span>);lineCountDisplay.<span class="hljs-property">textContent</span> = <span class="hljs-string">Lines: <span class="hljs-subst">"${"previousLineCount"}"</span></span>;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></div></div></pre><h3>说明</h3><ol><li><strong>HTML 部分</strong>：包括一个 <code>textarea</code> 和两个用于显示行数和消息的 <code>p</code>元素。</li><li><strong>CSS 部分</strong>：设置了 textarea 的基本样式。</li><li><strong>JavaScript 部分</strong>：<ul><li>使用 <code>getElementById</code> 获取 textarea 和显示行数及消息的元素。</li><li>定义 <code>getLineCount</code> 函数，计算 textarea 中的行数。</li><li>添加 <code>input</code> 事件监听器，监控 textarea 内容的变化。</li><li>比较当前行数和之前行数，如果当前行数少于之前行数，则显示一条消息。</li><li>初始化之前的行数。</li></ul></li></ol><p>这样，你就可以在 textarea 减少一行时进行判断，并执行相应的操作。</p>`
 
+// 在使用前声明 $openai 的类型
+const { $openai } = useNuxtApp()
+
 const contentList = ref<Record<string, any>[]>([])
 const loading = ref(false)
 // 提交
-const submit = () => {
+const submit = async () => {
   console.log('submit', textareaValue.value, textareaValue.value.includes("\n"), textareaValue.value.split("\n"));
   if (loading.value) return
   if (!textareaValue.value) return console.log("请输入内容");
   if (textareaValue.value.includes("\n") && textareaValue.value.split("\n").every(el => el === "")) return console.log("请输入内容");
   // 模拟请求
   loading.value = true
-  setTimeout(() => {
+  try {
+    const thread = await $openai.createThread()
+    await $openai.createMessage(thread.id, 'user', 'hello!')
+    const messages = await $openai.createAndPollRun(thread.id, textareaValue.value)
     contentList.value.push({ value: textareaValue.value, type: "user" })
     textareaValue.value = ''
     setAreaHeight()
     loading.value = false
     nextTick(() => {
       scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
-      setTimeout(() => {
-        contentList.value.push({ value: html, type: "assistant" })
-        nextTick(() => {
-          scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
-
-        })
-      }, 1000);
+      contentList.value.push({ value: messages[0].text, type: "assistant" })
+      nextTick(() => {
+        scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
+      })
     })
-  }, 2000);
+  } catch (error) {
+    console.error('Error fetching response:', error)
+  }
+  // setTimeout(() => {
+  //   contentList.value.push({ value: textareaValue.value, type: "user" })
+  //   textareaValue.value = ''
+  //   setAreaHeight()
+  //   loading.value = false
+  //   nextTick(() => {
+  //     scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
+  //     setTimeout(() => {
+  //       contentList.value.push({ value: html, type: "assistant" })
+  //       nextTick(() => {
+  //         scrollRef.value!.scrollTo(0, scrollRef.value!.scrollHeight)
+  //       })
+  //     }, 1000);
+  //   })
+  // }, 2000);
 }
 </script>

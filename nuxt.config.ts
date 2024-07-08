@@ -30,9 +30,11 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/globals.css"],
   modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "@nuxt/image"],
-  plugins: ["~/plugins/logto.ts"],
+  plugins: ["~/plugins/logto.ts", "~/plugins/openai.ts"],
   runtimeConfig: {
     public: {
+      OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
+      ASSISTANT_ID: process.env.ASSISTANT_ID || "",
       endpoint: process.env.LOGTO_ENDPOINT || "",
       appId: process.env.LOGTO_APP_ID || "",
       backendEndpoint: process.env.BACKEND_ENDPOINT || "",

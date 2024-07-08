@@ -16,7 +16,7 @@
               <div class="relative inline-flex">
                 <span
                   class="inline-flex items-center text-xs px-1.5 py-0.5 bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-500 dark:text-primary-400 ring-1 ring-inset ring-primary-500 dark:ring-primary-400 ring-opacity-25 dark:ring-opacity-25 -mb-[2px] rounded font-semibold">
-                  v0.0.1</span>
+                  v0.0.2</span>
               </div>
             </div>
           </NuxtLink>
