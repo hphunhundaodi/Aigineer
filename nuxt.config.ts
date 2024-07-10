@@ -43,4 +43,22 @@ export default defineNuxtConfig({
       helpDocsURL: process.env.HELP_DOCS_URL || "",
     },
   },
+  // serverHandlers: [
+  //   { route: '/api', handler: '~/server.js' }
+  // ],
+  // nitro: {
+  //   devProxy: {
+  //     '/api/openai': {
+  //       target: 'https://api.openai.com/',
+  //       changeOrigin: true,
+  //       prependPath: true,
+  //     },
+  //   },
+  //   routeRules: {
+  //     '/api/openai/**': {
+  //       proxy: 'http://127.0.0.1:7890',
+  //       // proxy: 'https://api.openai.com/**',
+  //     },
+  //   },
+  // },
 });
