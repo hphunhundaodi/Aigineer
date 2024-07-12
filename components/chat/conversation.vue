@@ -12,7 +12,7 @@
                   class="min-h-[20px] text-message flex flex-col items-start whitespace-pre-wrap break-words [.text-message+&amp;]:mt-5 juice:w-full juice:items-end overflow-x-auto gap-2">
                   <div class="flex w-full flex-col gap-1 juice:empty:hidden items-end rtl:items-start">
                     <div
-                      class="relative max-w-[70%] rounded-3xl bg-[#1e1e3c] px-5 py-2.5 dark:bg-token-main-surface-secondary">
+                      class="relative max-w-[70%] rounded-3xl bg-stone-300 dark:bg-[#1e1e3c] px-5 py-2.5 dark:bg-token-main-surface-secondary">
                       <div v-html="value"></div>
                       <!-- <div
                         class="absolute bottom-0 right-full top-0 -mr-3.5 hidden pr-5 pt-1 [.group\/conversation-turn:hover_&amp;]:block">
@@ -32,9 +32,21 @@
                   </div>
                 </div>
               </template>
-              <template v-else>
-                <div :data-message-author-role="type" data-message-id="834a56bf-3990-499c-9a95-c20894094310"
-                  dir="auto"
+              <template v-else-if="type === 'loading'">
+                <div :data-message-author-role="type" data-message-id="834a56bf-3990-499c-9a95-c20894094310" dir="auto"
+                  class="min-h-[20px] text-message flex flex-col items-start whitespace-pre-wrap break-words [.text-message+&amp;]:mt-5 juice:w-full juice:items-end overflow-x-auto gap-2">
+                  <div class="flex w-full flex-col gap-1 juice:empty:hidden juice:first:pt-[3px]">
+                    <div
+                      class="markdown prose w-full break-words dark:prose-invert dark  min-h-8 w-1/6 flex justify-center items-center">
+                      <div class=" loading loading-ball  loading-xs text-purple-600 dark:text-purple-400"> </div>
+                      <div class=" loading loading-ball  loading-sm text-purple-600 dark:text-purple-400"> </div>
+                      <div class=" loading loading-ball  loading-md text-purple-600 dark:text-purple-400"> </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <template v-else-if="type === 'assistant'">
+                <div :data-message-author-role="type" data-message-id="834a56bf-3990-499c-9a95-c20894094310" dir="auto"
                   class="min-h-[20px] text-message flex flex-col items-start whitespace-pre-wrap break-words [.text-message+&amp;]:mt-5 juice:w-full juice:items-end overflow-x-auto gap-2">
                   <div class="flex w-full flex-col gap-1 juice:empty:hidden juice:first:pt-[3px]">
                     <div class="markdown prose w-full break-words dark:prose-invert dark" v-html="value">
@@ -56,5 +68,5 @@
  *  user 用户输入的
  *  assistant 机器回答的
  */
-defineProps<{ value: string, type: string }>()
+defineProps<{ value?: string, type: string }>()
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div class="flex-shrink-0 flex flex-col relative items-end">
     <div>
-      <div class="pt-0.5 juice:pt-0">
+      <div class="bg-purple-400 dark:bg-purple-400 text-[#fff] rounded-full w-8 h-8 flex justify-center items-center">AI</div>
+      <!-- <div class="pt-0.5 juice:pt-0">
         <div
           class="gizmo-bot-avatar flex h-6 w-6 items-center justify-center overflow-hidden rounded-full juice:h-8 juice:w-8">
           <div
@@ -14,7 +15,7 @@
             </svg>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
