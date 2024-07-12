@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "py": "python backend/Backend.py",
-    "startjs": "node backend/server.js",
+    "py": "python backend/py/Backend.py",
+    "startjs": "node backend/js/server.js",
     "startts": "ts-node backend/server.ts",
     "build": "nuxt build",
     "dev": "nuxt dev",
