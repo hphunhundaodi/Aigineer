@@ -9,7 +9,7 @@ CORS(app)  # Enable CORS for all routes
 # Initialize the OpenAI client
 api_key = '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'
 client = OpenAI(api_key=api_key)
-assistant_id = 'asst_YovbJCk792wRsmuDGtnyI0jG'
+assistant_id = 'asst_lgIpKBMuA2utqbV5Z1BJk7Yd'
 
 @app.route('/chat', methods=['POST'])
 def chat():
