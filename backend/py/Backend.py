@@ -4,10 +4,9 @@ from openai import OpenAI
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# Initialize the OpenAI client
-api_key = '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'
+api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=api_key)
 assistant_id = 'asst_lgIpKBMuA2utqbV5Z1BJk7Yd'
 
@@ -30,10 +29,33 @@ def chat():
         )
         
         if run.status == 'completed':
-            messages = client.beta.threads.messages.list(
-                thread_id=thread.id
-            )
-            response = messages.data[0].content[0].text.value
+            messages = client.beta.threads.messages.list(thread_id=thread.id)
+            latest_message = messages.data[0]
+            message_content = latest_message.content[0].text
+            annotations = message_content.annotations
+            citations = []
+            
+            for index, annotation in enumerate(annotations):
+                message_content.value = message_content.value.replace(annotation.text, f' [{index}]')
+                
+                if (file_citation := getattr(annotation, 'file_citation', None)):
+                    try:
+                        cited_file = client.files.retrieve(file_citation.file_id)
+                        filename = cited_file.filename if cited_file.filename else "Unknown file"
+                        citations.append(f'[{index}]{filename}')
+                    except Exception as e:
+                        citations.append(f'[{index}]Error retrieving file: {str(e)}')
+                elif (file_path := getattr(annotation, 'file_path', None)):
+                    try:
+                        cited_file = client.files.retrieve(file_path.file_id)
+                        filename = cited_file.filename if cited_file.filename else "Unknown file"
+                        citations.append(f'[{index}]{filename}')
+                    except Exception as e:
+                        citations.append(f'[{index}]Error retrieving file: {str(e)}')
+                else:
+                    citations.append(f'[{index}]No file information available')
+            
+            response = message_content.value + '\n' + '\n'.join(citations)
             return jsonify({'response': response})
         else:
             return jsonify({'error': f"Run status: {run.status}"})
