@@ -1,8 +1,9 @@
-import express from 'express';
+// 安装对应的ts包
+import express, { type Request, type Response } from 'express';
 import cors from 'cors';
-import {
-    createProxyMiddleware
-} from 'http-proxy-middleware';
+// import {
+//     createProxyMiddleware
+// } from 'http-proxy-middleware';
 import OpenAI from 'openai';
 
 const app = express();
@@ -20,14 +21,14 @@ app.use(cors()); // Enable CORS for all routes
 // app.use('/', proxy); // 将所有请求代理到 Clash
 
 
-// Initialize the OpenAI client
+// Initialize the OpenAI clientp
 const apiKey = "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";
 const openai = new OpenAI({
     apiKey
 });
 const assistantId = "asst_YovbJCk792wRsmuDGtnyI0jG";
 
-app.post('/chat', async (req, res) => {
+app.post('/chat', async (req: Request, res: Response) => {
     const {
         message
     } = req.body;
@@ -89,7 +90,8 @@ app.post('/chat', async (req, res) => {
             response
         });
 
-    } catch (error) {
+    } catch (error: any) {
+        // Catch 子句变量类型注释必须为 "any" 或 "unknown" (若已指定)
         return res.status(500).json({
             error: error.message
         });
@@ -100,7 +102,3 @@ const port = process.env.SERVER_PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-/**
- * localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*
- */
